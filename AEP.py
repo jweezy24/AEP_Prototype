@@ -81,7 +81,7 @@ def examine_stream(stream):
     for val in stream:
         if count > 0 and count%8 == 0:
             seq_len = sequence_counter(num) 
-            if seq_len < 4:
+            if seq_len < 6:
                 bin_num = int(num, 2)
                 #print(f'{bin_num}\t{num}')
                 index = bin_num%64
@@ -99,13 +99,13 @@ def examine_stream(stream):
                 if numbers[index] == 0:
                     numbers[index] = 1
 
-                elif numbers[index] > numbers[min_at] and not was_appended:
+                elif numbers[index] > numbers[min_at]:
                     numbers[min_at] = numbers[min_at]+1
-                    was_appended = True
+                    #was_appended = True
 
                 else:
                     numbers[index] = numbers[index]+1
-                    was_appended = False
+                    #was_appended = False
             num = ''
 
         else:
