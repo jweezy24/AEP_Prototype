@@ -85,34 +85,20 @@ def examine_stream(stream):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    for i in range(0, 512):
+    start_length = 512
+    map_length = start_length/2
+    all_numbers = []
+
+    for i in range(0,start_length):
         numbers[i] = 0
 
     for val in stream:
-        if len(num) == 9: 
+        if len(num) == math.log(start_length, 2): 
             bin_num = int(num, 2)
-            #print(f'{bin_num}\t{num}')
             index = bin_num
-            #print(num)
-            # min_val = 9999999999
-            # for ind,val in numbers.items():
-            #     if val < min_val and ind != last_update:
-            #         min_val = val
-            #         min_at = ind
-            #         last_update = ind
-
-            #     elif ind == last_update and val == min_val:
-            #         min_val = 9999999999
-            #         min_at = 0
-
-            # if numbers[index] == 0:
-            #     numbers[index] = 1
-
-            # elif numbers[index] > numbers[min_at]:
-            #     numbers[min_at] = numbers[min_at]+1
-            #     #was_appended = True
-            # if numbers[index] <= 500:
             numbers[index] = numbers[index]+1
+
+            all_numbers.append(num)
 
             #was_appended = False
             num = ''
@@ -140,7 +126,7 @@ def examine_stream(stream):
     local_max = 0
     local_ind = 0
     min_cut_count = 4
-    while total_elements > 256:
+    while total_elements > map_length:
         local_max = 0
         local_ind = 0   
         local_min = 1000000000
@@ -152,21 +138,37 @@ def examine_stream(stream):
             if local_min > val:
                 local_ind_min = ind
                 local_min = val
-        if total_elements > 256 and local_max != 0:
+        if total_elements > map_length and local_max != 0:
             numbers[local_ind] = 0
             total_elements -= 1
-        if total_elements > 256 and min_cut_count > 0:
+        if total_elements > map_length and min_cut_count > 0:
             numbers[local_ind_min] = 0
             total_elements -= 1
             min_cut_count -= 1
     
     new_numbers = {}
     count = 0
+
     for ind,val in numbers.items():
         if val > 0:
             new_numbers[count] = val
+            for pos in range(0,len(all_numbers)):
+                if type(all_numbers[pos]) == type('t'):
+                    if ind == int(all_numbers[pos],2):
+                        str_numb = '{0:09b}'.format(count)
+                        all_numbers[pos] = '{0:09b}'.format(count)  
             count+=1
+        elif val == 0:
+            for pos in range(0,len(all_numbers)):
+                if type(all_numbers[pos]) == type('t'):
+                    if ind == int(all_numbers[pos],2):
+                        all_numbers[pos] = -1 
         total_sequences += val
+    
+    with open('./bin_numbers_after_mapping.bin', 'a') as f:
+        for bin_number in all_numbers:
+            if bin_number != -1:
+                f.write(f'{bin_number}\n')
 
     p_set = []
     for ind,val in new_numbers.items():
@@ -192,37 +194,16 @@ def examine_stream_no_operations(stream):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    for i in range(0, 256):
+    start_length = 256
+    for i in range(0, start_length):
         numbers[i] = 0
 
     for val in stream:
-        if len(num) == 8:
-            #seq_len = sequence_counter(num) 
+        if len(num) == math.log(start_length, 2): 
             bin_num = int(num, 2)
-            #print(f'{bin_num}\t{num}')
             index = bin_num
-            #print(num)
-            # min_val = 9999999999
-            # for ind,val in numbers.items():
-            #     if val < min_val and ind != last_update:
-            #         min_val = val
-            #         min_at = ind
-            #         last_update = ind
-
-            #     elif ind == last_update and val == min_val:
-            #         min_val = 9999999999
-            #         min_at = 0
-
-            # if numbers[index] == 0:
-            #     numbers[index] = 1
-
-            # elif numbers[index] > numbers[min_at]:
-            #     numbers[min_at] = numbers[min_at]+1
-            #     #was_appended = True
-            # if numbers[index] <= 500:
             numbers[index] = numbers[index]+1
             total_sequences += 1
-                #was_appended = False
             num = ''
 
         else:
