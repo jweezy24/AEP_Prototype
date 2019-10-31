@@ -1,6 +1,7 @@
 import random
 import math
 import array
+import os
 import scipy.io as mat_parse
 import numpy as np
 import matplotlib.pyplot as plt
@@ -86,7 +87,7 @@ def examine_stream(stream):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    start_length = 256
+    start_length = 512
     map_length = start_length/2
     all_numbers = []
 
@@ -164,10 +165,13 @@ def examine_stream(stream):
     byte_arr = []
     bin_numbers = []
     count = 0
+    if os.path.isfile("./bin_numbers_after_mapping.bin"):
+        os.system("rm ./bin_numbers_after_mapping.bin")
+
     with open('./bin_numbers_after_mapping.bin', 'ab') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
-                if count == 8 and count > 0:
+                if count == math.log(map_length,2) and count > 0:
                     print(bin_numbers)
                     num = bytes(bin_numbers)
                     f.write(num)
@@ -202,7 +206,7 @@ def examine_stream_no_operations(stream, notRandom):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    start_length = 128
+    start_length = 256
     all_numbers = []
     for i in range(0, start_length):
         numbers[i] = 0
@@ -230,7 +234,12 @@ def examine_stream_no_operations(stream, notRandom):
         k = val/total_sequences
         p_set.append(k)
 
+
     if notRandom:
+
+        if os.path.isfile("./bin_numbers_after_mapping_bad.bin"):
+            os.system("rm ./bin_numbers_after_mapping_bad.bin")
+
         bin_numbers = []
         count = 0
         with open('./bin_numbers_after_mapping_bad.bin', 'ab') as f:
@@ -268,6 +277,10 @@ def make_histogram(vals,num, name):
     plt.clf()
 
 
+def preform_nist_tests():
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping_bad.bin")
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping.bin")
+
 def main():
     stream_1,stream_2 = stream_parse()
     random_vals_amount = int((len(stream_1)+len(stream_2))/2)
@@ -278,6 +291,9 @@ def main():
     make_histogram(numbers_1,1, "Mapped Data")
     make_histogram(numbers_2,2, "Unmapped Data")
     make_histogram(numbers_3,3, "Completely Random Data")
+    preform_nist_tests()
+
+
 
 
 main()
