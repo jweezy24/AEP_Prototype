@@ -5,6 +5,11 @@ import os
 import scipy.io as mat_parse
 import numpy as np
 import matplotlib.pyplot as plt
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("holder")
+parser.add_argument("size")
+args = parser.parse_args()
     
 def stream_parse():
     binary_data = mat_parse.loadmat('after_correction_256.mat')
@@ -34,6 +39,23 @@ def entropy_calculation(p_set):
         total += math.log(ele,2)*ele
     
     return -total
+
+def susan_changes(stream):
+    sequence = []
+    num = ''
+    for val in stream:
+        if len(num) == 2:
+            if num == '11' or num == '00':
+                num = ''
+            else:
+                if num == '10':
+                    sequence.append('0')
+                elif num == '01':
+                    sequence.append('1')
+                num = ''
+        else:
+            num += str(val)
+    return sequence
 
 def sequence_counter(string):
     was_0 = False
@@ -78,7 +100,7 @@ def sequence_counter(string):
 
 
 
-def examine_stream_ascii(stream):
+def examine_stream_ascii(stream, isSusan):
     count = 0
     num = ''
     numbers = {}
@@ -153,7 +175,8 @@ def examine_stream_ascii(stream):
             for pos in range(0,len(all_numbers)):
                 if type(all_numbers[pos]) == type('t'):
                     if ind == int(all_numbers[pos],2):
-                        all_numbers[pos] = count  
+                        str_numb = '{0:09b}'.format(count)
+                        all_numbers[pos] = '{0:09b}'.format(count)  
             count+=1
         elif val == 0:
             for pos in range(0,len(all_numbers)):
@@ -165,16 +188,7 @@ def examine_stream_ascii(stream):
     with open('./bin_numbers_after_mapping.txt', 'a') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
-                if count == math.log(map_length,2) and count > 0:
-                    print(bin_numbers)
-                    num = bytes(bin_numbers)
-                    f.write(num)
-                    bin_numbers = []
-                    count = 0
-                else:
-                    bin_numbers.append(bin_number)
-                    count+=1
-
+                f.write(f'{bin_number}\n')
 
     p_set = []
     for ind,val in new_numbers.items():
@@ -191,7 +205,7 @@ def examine_stream_ascii(stream):
 
     return new_numbers
 
-def examine_stream_binary(stream):
+def examine_stream_binary(stream, isSusan, size):
     count = 0
     num = ''
     numbers = {}
@@ -200,7 +214,7 @@ def examine_stream_binary(stream):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    start_length = 512
+    start_length = size
     map_length = start_length/2
     all_numbers = []
 
@@ -241,21 +255,22 @@ def examine_stream_binary(stream):
     local_max = 0
     local_ind = 0
     min_cut_count = 4
-    while total_elements > map_length:
-        local_max = 0
-        local_ind = 0   
-        local_min = 1000000000
-        local_ind_min = 0 
-        for ind,val in numbers.items():
-            if local_max < val:
-                local_max = val
-                local_ind = ind
-            if local_min > val:
-                local_ind_min = ind
-                local_min = val
-        if total_elements > map_length and local_max != 0:
-            numbers[local_ind] = 0
-            total_elements -= 1
+    if not isSusan:
+        while total_elements > map_length:
+            local_max = 0
+            local_ind = 0   
+            local_min = 1000000000
+            local_ind_min = 0 
+            for ind,val in numbers.items():
+                if local_max < val:
+                    local_max = val
+                    local_ind = ind
+                if local_min > val:
+                    local_ind_min = ind
+                    local_min = val
+            if total_elements > map_length and local_max != 0:
+                numbers[local_ind] = 0
+                total_elements -= 1
     
     new_numbers = {}
     count = 0
@@ -279,11 +294,15 @@ def examine_stream_binary(stream):
     bin_numbers = []
     count = 0
 
-    with open('./bin_numbers_after_mapping.bin', 'ab') as f:
+    if isSusan:
+        file_name = './bin_numbers_after_mapping.bin'
+    else:
+        file_name = './bin_numbers_after_mapping_susan.bin'
+
+    with open(file_name, 'ab') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
                 if count == math.log(map_length,2) and count > 0:
-                    print(bin_numbers)
                     num = bytes(bin_numbers)
                     f.write(num)
                     bin_numbers = []
@@ -303,11 +322,18 @@ def examine_stream_binary(stream):
     #     if val >= 500:
     #         numbers[ind] = 0
 
+    if not isSusan:
+        with open('entropy_mapped.txt', 'a') as f:
+            f.write(f'{int(size/2)}\t{entropy}\n')
+    else:
+        with open('entropy_susan.txt', 'a') as f:
+            f.write(f'{size}\t{entropy}\n')
+
     print(f'{max_ind}\t{max_ind_2}\t{entropy}')    
 
     return new_numbers
 
-def examine_stream_no_operations(stream):
+def examine_stream_no_operations(stream, notRandom,size):
     count = 0
     num = ''
     numbers = {}
@@ -316,7 +342,7 @@ def examine_stream_no_operations(stream):
     was_appended = False
     last_update = 1
     total_sequences = 0
-    start_length = 256
+    start_length = size
     all_numbers = []
     for i in range(0, start_length):
         numbers[i] = 0
@@ -369,6 +395,13 @@ def examine_stream_no_operations(stream):
     #     if val >= 500:
     #         numbers[ind] = 0
 
+    if notRandom:
+        with open('entropy_no_map.txt', 'a') as f:
+            f.write(f'{size}\t{entropy}\n')
+    else:
+        with open('entropy_random.txt', 'a') as f:
+            f.write(f'{size}\t{entropy}\n')
+
     print(f'{max_ind}\t{max_ind_2}\t{entropy}')    
 
     return numbers
@@ -388,19 +421,34 @@ def make_histogram(vals,num, name):
 
 
 def preform_nist_tests():
-    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping_bad.bin")
-    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping.bin")
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping_bad.bin >> bin_test_results_bad.txt")
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping.bin >> bin_test_results.txt")
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping_susan.bin >> bin_test_results_susan.txt")
 
 def main():
+    is_individual = args.holder
     stream_1,stream_2 = stream_parse()
+    stream_3 = susan_changes(stream_1)
     random_vals_amount = int((len(stream_1)+len(stream_2))/2)
     rand = random_check(random_vals_amount)
-    numbers_1 = examine_stream_binary(stream_1)
-    numbers_2 = examine_stream_no_operations(stream_2, True)
-    numbers_3 = examine_stream_no_operations(rand, False)
+    if is_individual != 'true':
+        for i in range(2,9):
+            size = int(math.pow(2, i))
+            print(size)
+            numbers_1 = examine_stream_binary(stream_1,False,size*2)
+            numbers_1_s = examine_stream_binary(stream_3,True,size)
+            numbers_2 = examine_stream_no_operations(stream_2, True,size)
+            numbers_3 = examine_stream_no_operations(rand, False,size)
+    else:
+        size = int(args.size)
+        numbers_1 = examine_stream_binary(stream_1,False,size*2)
+        numbers_1_s = examine_stream_binary(stream_3,True,size)
+        numbers_2 = examine_stream_no_operations(stream_2, True,size)
+        numbers_3 = examine_stream_no_operations(rand, False,size)
     make_histogram(numbers_1,1, "Mapped Data")
     make_histogram(numbers_2,2, "Unmapped Data")
     make_histogram(numbers_3,3, "Completely Random Data")
+    make_histogram(numbers_1_s,4, "Mapped Data Susan Method")
     preform_nist_tests()
 
 
