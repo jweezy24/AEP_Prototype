@@ -1,5 +1,7 @@
 import random
 import math
+import array
+import os
 import scipy.io as mat_parse
 import numpy as np
 import matplotlib.pyplot as plt
@@ -141,10 +143,6 @@ def examine_stream_ascii(stream):
         if total_elements > map_length and local_max != 0:
             numbers[local_ind] = 0
             total_elements -= 1
-        if total_elements > map_length and min_cut_count > 0:
-            numbers[local_ind_min] = 0
-            total_elements -= 1
-            min_cut_count -= 1
     
     new_numbers = {}
     count = 0
@@ -155,8 +153,7 @@ def examine_stream_ascii(stream):
             for pos in range(0,len(all_numbers)):
                 if type(all_numbers[pos]) == type('t'):
                     if ind == int(all_numbers[pos],2):
-                        str_numb = '{0:09b}'.format(count)
-                        all_numbers[pos] = '{0:09b}'.format(count)  
+                        all_numbers[pos] = count  
             count+=1
         elif val == 0:
             for pos in range(0,len(all_numbers)):
@@ -168,7 +165,16 @@ def examine_stream_ascii(stream):
     with open('./bin_numbers_after_mapping.txt', 'a') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
-                f.write(f'{bin_number}\n')
+                if count == math.log(map_length,2) and count > 0:
+                    print(bin_numbers)
+                    num = bytes(bin_numbers)
+                    f.write(num)
+                    bin_numbers = []
+                    count = 0
+                else:
+                    bin_numbers.append(bin_number)
+                    count+=1
+
 
     p_set = []
     for ind,val in new_numbers.items():
@@ -311,6 +317,7 @@ def examine_stream_no_operations(stream):
     last_update = 1
     total_sequences = 0
     start_length = 256
+    all_numbers = []
     for i in range(0, start_length):
         numbers[i] = 0
 
@@ -319,6 +326,7 @@ def examine_stream_no_operations(stream):
             bin_num = int(num, 2)
             index = bin_num
             numbers[index] = numbers[index]+1
+            all_numbers.append(index)
             total_sequences += 1
             num = ''
 
@@ -335,6 +343,25 @@ def examine_stream_no_operations(stream):
     for ind,val in numbers.items():
         k = val/total_sequences
         p_set.append(k)
+
+
+    if notRandom:
+
+        if os.path.isfile("./bin_numbers_after_mapping_bad.bin"):
+            os.system("rm ./bin_numbers_after_mapping_bad.bin")
+
+        bin_numbers = []
+        count = 0
+        with open('./bin_numbers_after_mapping_bad.bin', 'ab') as f:
+            for bin_number in all_numbers:
+                if count == 8 and count > 0:
+                    num = bytes(bin_numbers)
+                    f.write(num)
+                    bin_numbers = []
+                    count = 0
+                else:
+                    bin_numbers.append(bin_number)
+                    count+=1
     
     entropy = entropy_calculation(p_set)
         
@@ -346,27 +373,37 @@ def examine_stream_no_operations(stream):
 
     return numbers
 
-def make_histogram(vals,num):
+def make_histogram(vals,num, name):
     entries = [(k, v) for k, v in vals.items()] 
 
     x_vals = [x for x,y in entries]
     y_vals = [y for x,y in entries]
     plt.bar(x_vals, y_vals)
+    plt.title(name)
+    plt.xlabel("Binary Number Formed By Sequence")
+    plt.ylabel("Number of Entries")
 
-    plt.savefig(f'./plot_col_{num}.pdf')
+    plt.savefig(f'./plot_{name.replace(" ", "_")}.pdf')
     plt.clf()
 
+
+def preform_nist_tests():
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping_bad.bin")
+    os.system("python3 ./sp800_22_tests/sp800_22_tests.py ./bin_numbers_after_mapping.bin")
 
 def main():
     stream_1,stream_2 = stream_parse()
     random_vals_amount = int((len(stream_1)+len(stream_2))/2)
     rand = random_check(random_vals_amount)
     numbers_1 = examine_stream_binary(stream_1)
-    numbers_2 = examine_stream_no_operations(stream_2)
-    numbers_3 = examine_stream_no_operations(rand)
-    make_histogram(numbers_1,1)
-    make_histogram(numbers_2,2)
-    make_histogram(numbers_3,3)
+    numbers_2 = examine_stream_no_operations(stream_2, True)
+    numbers_3 = examine_stream_no_operations(rand, False)
+    make_histogram(numbers_1,1, "Mapped Data")
+    make_histogram(numbers_2,2, "Unmapped Data")
+    make_histogram(numbers_3,3, "Completely Random Data")
+    preform_nist_tests()
+
+
 
 
 main()
