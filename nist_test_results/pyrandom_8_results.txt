@@ -1,0 +1,207 @@
+------------------------------------------------------------------------------
+RESULTS FOR THE UNIFORMITY OF P-VALUES AND THE PROPORTION OF PASSING SEQUENCES
+------------------------------------------------------------------------------
+   generator is <./data/bin_numbers_after_mapping_raw_8.txt>
+------------------------------------------------------------------------------
+ C1  C2  C3  C4  C5  C6  C7  C8  C9 C10  P-VALUE  PROPORTION  STATISTICAL TEST
+------------------------------------------------------------------------------
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  Frequency
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  BlockFrequency
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  CumulativeSums
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  CumulativeSums
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  Runs
+1922   4   4   2   0   1   0   0   0   0  0.000000 *  134/1933 *  LongestRun
+155 133 273 332 199   0 130 256 455   0  0.000000 * 1909/1933    Rank
+399 236 184 221 154 111 175 161 133 159  0.000000 * 1852/1933 *  FFT
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  NonOverlappingTemplate
+1846  77   8   2   0   0   0   0   0   0  0.000000 * 1311/1933 *  NonOverlappingTemplate
+1518 312  67  26   5   3   2   0   0   0  0.000000 * 1735/1933 *  NonOverlappingTemplate
+674 580 310 192  86  57  23   8   2   1  0.000000 * 1908/1933    NonOverlappingTemplate
+1300 450 113  40  14  13   3   0   0   0  0.000000 * 1817/1933 *  NonOverlappingTemplate
+519 561 371 183 122  73  59  30  12   3  0.000000 * 1922/1933    NonOverlappingTemplate
+309 432 409 256 185 120 106  67  31  18  0.000000 * 1931/1933 *  NonOverlappingTemplate
+116 239 278 279 241 222 208 174 100  76  0.000000 * 1933/1933 *  NonOverlappingTemplate
+1232 434 165  48  28  19   5   1   1   0  0.000000 * 1846/1933 *  NonOverlappingTemplate
+424 551 375 243 150  78  55  37  13   7  0.000000 * 1925/1933    NonOverlappingTemplate
+241 415 402 273 189 162 108  86  46  11  0.000000 * 1932/1933 *  NonOverlappingTemplate
+ 99 203 283 262 283 251 184 184 108  76  0.000000 * 1932/1933 *  NonOverlappingTemplate
+183 336 395 284 224 192 131  98  52  38  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 81 170 256 269 257 237 186 221 148 108  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 78 157 207 243 230 235 221 218 199 145  0.000000 * 1930/1933 *  NonOverlappingTemplate
+124 154 159 173 207 230 210 241 235 200  0.000000 * 1917/1933    NonOverlappingTemplate
+389 508 371 245 174 106  60  42  27  11  0.000000 * 1927/1933 *  NonOverlappingTemplate
+189 422 359 278 216 185 133  73  53  25  0.000000 * 1932/1933 *  NonOverlappingTemplate
+ 83 186 252 247 292 271 209 181 126  86  0.000000 * 1932/1933 *  NonOverlappingTemplate
+161 328 372 278 243 199 138 107  66  41  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 87 188 198 248 247 255 221 227 151 111  0.000000 * 1928/1933 *  NonOverlappingTemplate
+ 89 157 212 214 235 235 217 230 189 155  0.000000 * 1928/1933 *  NonOverlappingTemplate
+135 156 189 173 191 204 245 225 218 197  0.000000 * 1914/1933    NonOverlappingTemplate
+ 86 197 200 217 245 243 204 235 180 126  0.000000 * 1925/1933    NonOverlappingTemplate
+ 93 147 210 210 232 242 257 213 195 134  0.000000 * 1925/1933    NonOverlappingTemplate
+151 156 164 180 229 216 218 210 200 209  0.000024 * 1913/1933    NonOverlappingTemplate
+ 94 135 167 214 241 270 214 228 207 163  0.000000 * 1920/1933    NonOverlappingTemplate
+192 147 182 185 189 192 217 245 199 185  0.000528   1901/1933    NonOverlappingTemplate
+231 163 172 210 179 162 215 201 212 188  0.001532   1893/1933 *  NonOverlappingTemplate
+456 237 172 190 181 136 140 135 133 153  0.000000 * 1805/1933 *  NonOverlappingTemplate
+340 450 364 261 188 163  80  55  19  13  0.000000 * 1931/1933 *  NonOverlappingTemplate
+203 353 376 262 231 171 149  95  58  35  0.000000 * 1932/1933 *  NonOverlappingTemplate
+ 71 175 214 257 254 253 204 218 168 119  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 69 173 222 211 250 233 245 202 168 160  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 84 141 188 232 241 251 234 216 181 165  0.000000 * 1922/1933    NonOverlappingTemplate
+170 146 175 177 247 180 203 231 185 219  0.000001 * 1913/1933    NonOverlappingTemplate
+ 80 136 194 239 241 237 253 225 180 148  0.000000 * 1928/1933 *  NonOverlappingTemplate
+ 73 145 178 209 235 233 243 237 216 164  0.000000 * 1928/1933 *  NonOverlappingTemplate
+185 176 171 184 195 206 197 212 219 188  0.259725   1899/1933 *  NonOverlappingTemplate
+220 173 166 188 188 197 205 206 201 189  0.213017   1896/1933 *  NonOverlappingTemplate
+270 170 169 178 198 201 204 199 158 186  0.000001 * 1877/1933 *  NonOverlappingTemplate
+551 231 168 177 150 150 144 121 121 120  0.000000 * 1765/1933 *  NonOverlappingTemplate
+ 97 157 200 196 240 213 198 219 235 178  0.000000 * 1927/1933 *  NonOverlappingTemplate
+209 176 170 208 185 184 226 223 177 175  0.013603   1896/1933 *  NonOverlappingTemplate
+201 187 174 190 219 196 199 217 158 192  0.077900   1899/1933 *  NonOverlappingTemplate
+292 186 180 188 177 190 201 188 172 159  0.000000 * 1872/1933 *  NonOverlappingTemplate
+607 253 166 165 152 126 118 127 106 113  0.000000 * 1728/1933 *  NonOverlappingTemplate
+299 202 175 167 194 195 164 188 182 167  0.000000 * 1868/1933 *  NonOverlappingTemplate
+627 252 185 177 161 113  97 107 119  95  0.000000 * 1721/1933 *  NonOverlappingTemplate
+690 230 162 170 143 116 141 105 104  72  0.000000 * 1685/1933 *  NonOverlappingTemplate
+735 254 204 150 145 120  95  81  78  71  0.000000 * 1671/1933 *  NonOverlappingTemplate
+1215 219 136  90  74  42  55  35  42  25  0.000000 * 1258/1933 *  NonOverlappingTemplate
+219 404 372 300 210 156 118  85  49  20  0.000000 * 1932/1933 *  NonOverlappingTemplate
+ 77 134 196 237 249 240 224 230 197 149  0.000000 * 1930/1933 *  NonOverlappingTemplate
+ 77 144 193 201 235 254 226 265 196 142  0.000000 * 1925/1933    NonOverlappingTemplate
+210 166 186 183 206 166 205 199 203 209  0.142196   1892/1933 *  NonOverlappingTemplate
+ 91 143 170 215 220 260 250 239 199 146  0.000000 * 1927/1933 *  NonOverlappingTemplate
+232 207 152 185 176 187 204 219 190 181  0.003519   1885/1933 *  NonOverlappingTemplate
+260 176 187 199 203 169 191 204 175 169  0.000091 * 1881/1933 *  NonOverlappingTemplate
+680 253 180 180 133 115 121  98  93  80  0.000000 * 1671/1933 *  NonOverlappingTemplate
+ 90 145 168 197 236 220 237 235 225 180  0.000000 * 1930/1933 *  NonOverlappingTemplate
+283 198 180 185 195 167 182 185 183 175  0.000000 * 1876/1933 *  NonOverlappingTemplate
+282 197 157 177 200 194 174 216 163 173  0.000000 * 1878/1933 *  NonOverlappingTemplate
+786 236 189 136 137 120 100  88  76  65  0.000000 * 1637/1933 *  NonOverlappingTemplate
+272 244 188 195 174 184 172 178 176 150  0.000000 * 1886/1933 *  NonOverlappingTemplate
+779 256 209 137 139 102  81  89  79  62  0.000000 * 1637/1933 *  NonOverlappingTemplate
+828 248 177 136 142  94  91  93  61  63  0.000000 * 1582/1933 *  NonOverlappingTemplate
+1393 178 116  65  55  34  37  26  17  12  0.000000 * 1055/1933 *  NonOverlappingTemplate
+295 168 174 193 195 180 203 186 183 156  0.000000 * 1861/1933 *  NonOverlappingTemplate
+835 242 182 148 136 100  98  73  65  54  0.000000 * 1581/1933 *  NonOverlappingTemplate
+833 253 187 141 113 106 110  62  61  67  0.000000 * 1580/1933 *  NonOverlappingTemplate
+1459 184  88  57  44  31  23  23  14  10  0.000000 *  952/1933 *  NonOverlappingTemplate
+1493 173  90  43  44  25  28  16  10  11  0.000000 *  919/1933 *  NonOverlappingTemplate
+1819  57  24  14   4   6   3   1   3   2  0.000000 *  376/1933 *  NonOverlappingTemplate
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  NonOverlappingTemplate
+1197 483 157  48  26   9   8   2   3   0  0.000000 * 1860/1933 *  NonOverlappingTemplate
+1304 419 139  35  21   7   6   0   2   0  0.000000 * 1820/1933 *  NonOverlappingTemplate
+170 362 369 273 226 200 140 104  68  21  0.000000 * 1932/1933 *  NonOverlappingTemplate
+184 352 351 303 238 187 133  94  56  35  0.000000 * 1933/1933 *  NonOverlappingTemplate
+ 92 161 183 201 207 246 226 245 213 159  0.000000 * 1923/1933    NonOverlappingTemplate
+1540 289  79  15   6   4   0   0   0   0  0.000000 * 1706/1933 *  NonOverlappingTemplate
+198 328 363 316 234 173 130  98  64  29  0.000000 * 1932/1933 *  NonOverlappingTemplate
+226 407 361 257 236 159 120  98  43  26  0.000000 * 1932/1933 *  NonOverlappingTemplate
+ 75 144 195 216 239 253 212 255 214 130  0.000000 * 1928/1933 *  NonOverlappingTemplate
+244 403 371 257 226 184 114  74  42  18  0.000000 * 1931/1933 *  NonOverlappingTemplate
+103 153 196 205 185 252 231 217 234 157  0.000000 * 1928/1933 *  NonOverlappingTemplate
+ 81 155 201 207 211 221 222 256 227 152  0.000000 * 1928/1933 *  NonOverlappingTemplate
+293 210 161 206 185 175 185 177 167 174  0.000000 * 1863/1933 *  NonOverlappingTemplate
+334 409 399 252 198 151  96  47  35  12  0.000000 * 1930/1933 *  NonOverlappingTemplate
+ 75 156 198 201 235 250 240 244 196 138  0.000000 * 1929/1933 *  NonOverlappingTemplate
+ 77 139 188 202 254 257 248 222 205 141  0.000000 * 1927/1933 *  NonOverlappingTemplate
+295 177 172 176 200 179 196 172 198 168  0.000000 * 1876/1933 *  NonOverlappingTemplate
+ 72 147 229 235 258 240 229 197 188 138  0.000000 * 1926/1933    NonOverlappingTemplate
+282 201 175 177 197 200 179 181 173 168  0.000000 * 1882/1933 *  NonOverlappingTemplate
+237 196 185 169 204 206 189 190 184 173  0.041194   1889/1933 *  NonOverlappingTemplate
+759 269 171 158 129 107 102  84  83  71  0.000000 * 1628/1933 *  NonOverlappingTemplate
+1842  80  10   1   0   0   0   0   0   0  0.000000 * 1320/1933 *  NonOverlappingTemplate
+237 385 360 303 208 157 120 104  38  21  0.000000 * 1928/1933 *  NonOverlappingTemplate
+300 463 396 255 181 145  91  63  33   6  0.000000 * 1930/1933 *  NonOverlappingTemplate
+405 504 355 222 201 105  71  46  13  11  0.000000 * 1926/1933    NonOverlappingTemplate
+ 97 141 182 201 228 230 241 223 203 187  0.000000 * 1924/1933    NonOverlappingTemplate
+407 548 360 215 165 111  67  42  13   5  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 84 146 192 222 218 251 214 254 170 182  0.000000 * 1926/1933    NonOverlappingTemplate
+ 67 148 209 219 223 247 241 253 182 144  0.000000 * 1929/1933 *  NonOverlappingTemplate
+ 93 153 229 268 239 239 213 207 163 129  0.000000 * 1929/1933 *  NonOverlappingTemplate
+304 182 170 210 178 179 195 183 165 167  0.000000 * 1865/1933 *  NonOverlappingTemplate
+509 535 370 218 112 107  39  27  12   4  0.000000 * 1922/1933    NonOverlappingTemplate
+ 85 152 181 206 244 265 209 214 188 189  0.000000 * 1926/1933    NonOverlappingTemplate
+ 92 176 198 213 243 257 246 219 161 128  0.000000 * 1929/1933 *  NonOverlappingTemplate
+ 87 148 242 238 249 230 235 238 155 111  0.000000 * 1931/1933 *  NonOverlappingTemplate
+299 201 186 177 178 185 191 177 162 177  0.000000 * 1871/1933 *  NonOverlappingTemplate
+225 195 165 194 196 169 186 209 206 188  0.090652   1896/1933 *  NonOverlappingTemplate
+ 87 181 261 272 232 239 216 196 158  91  0.000000 * 1931/1933 *  NonOverlappingTemplate
+246 218 184 187 185 204 173 174 192 170  0.002007   1880/1933 *  NonOverlappingTemplate
+225 194 142 164 185 197 233 211 219 163  0.000004 * 1902/1933    NonOverlappingTemplate
+193 164 200 187 182 194 188 226 198 201  0.232968   1902/1933    NonOverlappingTemplate
+848 256 158 135 136 100  90  85  70  55  0.000000 * 1560/1933 *  NonOverlappingTemplate
+680 256 199 158 129 121 102 106 109  73  0.000000 * 1668/1933 *  NonOverlappingTemplate
+679 576 322 148 109  44  37  10   7   1  0.000000 * 1912/1933    NonOverlappingTemplate
+ 84 150 205 208 260 247 237 211 184 147  0.000000 * 1931/1933 *  NonOverlappingTemplate
+ 81 168 236 275 243 250 202 204 160 114  0.000000 * 1929/1933 *  NonOverlappingTemplate
+316 184 172 206 171 171 197 180 167 169  0.000000 * 1867/1933 *  NonOverlappingTemplate
+ 87 183 235 235 277 253 214 209 137 103  0.000000 * 1933/1933 *  NonOverlappingTemplate
+264 176 169 167 219 170 193 209 193 173  0.000002 * 1873/1933 *  NonOverlappingTemplate
+206 161 159 195 204 192 182 210 221 203  0.021056   1898/1933 *  NonOverlappingTemplate
+ 95 215 259 282 263 244 209 163 114  89  0.000000 * 1929/1933 *  NonOverlappingTemplate
+247 199 171 180 194 176 220 197 175 174  0.001116   1878/1933 *  NonOverlappingTemplate
+194 153 148 189 227 205 215 225 183 194  0.000091 * 1906/1933    NonOverlappingTemplate
+900 244 175 138 110  92  93  67  52  62  0.000000 * 1554/1933 *  NonOverlappingTemplate
+189 160 166 194 197 187 201 241 203 195  0.007197   1908/1933    NonOverlappingTemplate
+788 244 166 133 143 113 111  92  86  57  0.000000 * 1616/1933 *  NonOverlappingTemplate
+648 251 179 155 162 129 115 102  93  99  0.000000 * 1711/1933 *  NonOverlappingTemplate
+ 93 252 273 281 284 238 160 164 122  66  0.000000 * 1932/1933 *  NonOverlappingTemplate
+233 194 202 179 174 185 192 207 201 166  0.047751   1889/1933 *  NonOverlappingTemplate
+147 159 173 190 205 203 224 204 237 191  0.000040 * 1916/1933    NonOverlappingTemplate
+853 257 190 130 124  74  92  84  71  58  0.000000 * 1570/1933 *  NonOverlappingTemplate
+134 144 168 208 190 206 262 208 202 211  0.000000 * 1919/1933    NonOverlappingTemplate
+707 264 198 159 149  90 115  97  89  65  0.000000 * 1656/1933 *  NonOverlappingTemplate
+593 239 168 153 163 129 134 118 131 105  0.000000 * 1720/1933 *  NonOverlappingTemplate
+1461 178  86  44  48  34  30  23  19  10  0.000000 *  944/1933 *  NonOverlappingTemplate
+118 139 176 208 231 203 217 234 209 198  0.000000 * 1915/1933    NonOverlappingTemplate
+727 254 195 150 131 115 114  90  76  81  0.000000 * 1654/1933 *  NonOverlappingTemplate
+564 212 174 182 163 126 126 121 128 137  0.000000 * 1762/1933 *  NonOverlappingTemplate
+1485 157  84  56  50  37  26  21   9   8  0.000000 *  965/1933 *  NonOverlappingTemplate
+477 243 194 181 151 139 145 156 114 133  0.000000 * 1803/1933 *  NonOverlappingTemplate
+1390 175 105  63  52  43  42  30  20  13  0.000000 * 1097/1933 *  NonOverlappingTemplate
+1188 216 141 100  79  66  49  39  31  24  0.000000 * 1263/1933 *  NonOverlappingTemplate
+1820  58  21  14   5   6   3   1   3   2  0.000000 *  380/1933 *  NonOverlappingTemplate
+1517 133 105  62  46  26  15  16  10   3  0.000000 * 1023/1933 *  OverlappingTemplate
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  Universal
+1933   0   0   0   0   0   0   0   0   0  0.000000 *    0/1933 *  ApproximateEntropy
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursions
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+  0   0   0   0   0   0   0   0   0   0     ----     ------     RandomExcursionsVariant
+973 272 188 136 110  59  77  53  38  27  0.000000 * 1551/1933 *  Serial
+293 222 180 191 166 162 157 173 182 207  0.000000 * 1883/1933 *  Serial
+215 138 141 172 195 185 232 257 205 193  0.000000 * 1872/1933 *  LinearComplexity
+
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+The minimum pass rate for each statistical test with the exception of the
+random excursion (variant) test is approximately = 1900 for a
+sample size = 1933 binary sequences.
+
+The minimum pass rate for the random excursion (variant) test is undefined.
+
+For further guidelines construct a probability table using the MAPLE program
+provided in the addendum section of the documentation.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

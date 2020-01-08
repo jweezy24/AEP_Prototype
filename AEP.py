@@ -2,6 +2,7 @@ import random
 import math
 import array
 import os
+import time
 import scipy.io as mat_parse
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,6 +26,14 @@ def stream_parse():
             else:
                 data_2.append(darray_bin[x,y])
     return (data_1, data_2)
+
+def bits_log_parse():
+    bits = []
+    with open('./bits.log', 'r') as f:
+        for line in f:
+            bits.append(line[0])
+    print(len(bits))
+    return bits
 
 def random_check(vals):
     random_set = []
@@ -188,7 +197,7 @@ def examine_stream_ascii(stream, isSusan):
     with open('./bin_numbers_after_mapping.txt', 'a') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
-                f.write(f'{bin_number}\n')
+                f.write(bin_number)
 
     p_set = []
     for ind,val in new_numbers.items():
@@ -205,7 +214,7 @@ def examine_stream_ascii(stream, isSusan):
 
     return new_numbers
 
-def examine_stream_binary(stream, isSusan, size):
+def examine_stream_binary(stream, isSusan, size,iter):
     count = 0
     num = ''
     numbers = {}
@@ -219,12 +228,19 @@ def examine_stream_binary(stream, isSusan, size):
     all_numbers = []
 
     for i in range(0,start_length):
-        numbers[i] = 0
+        binary_str = "{0:#b}".format(i)[2:]
+        numbers[binary_str] = 0
+    print(numbers)
 
     for val in stream:
         if len(num) == math.log(start_length, 2): 
-            bin_num = int(num, 2)
-            index = bin_num
+            try:
+                bin_num = int(num,2)
+                
+            except:
+                num = ''
+                continue
+            index = "{0:#b}".format(bin_num)[2:]
             numbers[index] = numbers[index]+1
             
             all_numbers.append(num)
@@ -294,22 +310,23 @@ def examine_stream_binary(stream, isSusan, size):
     bin_numbers = []
     count = 0
 
-    if isSusan:
-        file_name = './bin_numbers_after_mapping.bin'
+    if not isSusan:
+        file_name = f'./bin_numbers_after_mapping_{iter}.txt'
     else:
-        file_name = './bin_numbers_after_mapping_susan.bin'
+        file_name = f'./bin_numbers_after_mapping_susan_{iter}.txt'
 
-    with open(file_name, 'ab') as f:
+    with open(file_name, 'a') as f:
         for bin_number in all_numbers:
             if bin_number != -1:
-                if count == math.log(map_length,2) and count > 0:
-                    num = bytes(bin_numbers)
-                    f.write(num)
-                    bin_numbers = []
-                    count = 0
-                else:
-                    bin_numbers.append(bin_number)
-                    count+=1
+                # if count == math.log(map_length,2) and count > 0:
+                #     num = bytes(bin_numbers)
+                #     f.write(num)
+                #     bin_numbers = []
+                #     count = 0
+                # else:
+                #     bin_numbers.append(bin_number)
+                #     count+=1
+                f.write(bin_number.replace('\n',''))
 
     p_set = []
     for ind,val in new_numbers.items():
@@ -333,7 +350,7 @@ def examine_stream_binary(stream, isSusan, size):
 
     return new_numbers
 
-def examine_stream_no_operations(stream, notRandom,size):
+def examine_stream_no_operations(stream, notRandom,size,iter):
     count = 0
     num = ''
     numbers = {}
@@ -341,16 +358,21 @@ def examine_stream_no_operations(stream, notRandom,size):
     min_at = 0
     was_appended = False
     last_update = 1
-    total_sequences = 0
+    total_sequences = 0 
     start_length = size
     all_numbers = []
     for i in range(0, start_length):
-        numbers[i] = 0
+        binary_str = "{0:#b}".format(i)[2:]
+        numbers[binary_str] = 0
 
     for val in stream:
         if len(num) == math.log(start_length, 2): 
-            bin_num = int(num, 2)
-            index = bin_num
+            try:
+                bin_num = int(num,2)
+            except:
+                num = ''
+                continue
+            index = "{0:#b}".format(bin_num)[2:]
             numbers[index] = numbers[index]+1
             all_numbers.append(index)
             total_sequences += 1
@@ -373,21 +395,41 @@ def examine_stream_no_operations(stream, notRandom,size):
 
     if notRandom:
 
-        if os.path.isfile("./bin_numbers_after_mapping_bad.bin"):
-            os.system("rm ./bin_numbers_after_mapping_bad.bin")
+        if os.path.isfile(f"./bin_numbers_no_map_{iter}.txt"):
+            os.system(f"rm ./bin_numbers_no_map_{iter}.txt")
 
         bin_numbers = []
         count = 0
-        with open('./bin_numbers_after_mapping_bad.bin', 'ab') as f:
+        with open(f'./bin_numbers_no_map_{iter}.txt', 'a') as f:
             for bin_number in all_numbers:
-                if count == 8 and count > 0:
-                    num = bytes(bin_numbers)
-                    f.write(num)
-                    bin_numbers = []
-                    count = 0
-                else:
-                    bin_numbers.append(bin_number)
-                    count+=1
+                # if count == math.log(start_length,2) and count > 0:
+                #     num = bytes(bin_numbers)
+                #     f.write(num)
+                #     bin_numbers = []
+                #     count = 0
+                # else:
+                #     bin_numbers.append(bin_number)
+                #     count+=1
+                f.write(bin_number)
+
+    else:
+
+        if os.path.isfile(f"./bin_numbers_after_mapping_pyrandom_{iter}.txt"):
+            os.system(f"rm ./bin_numbers_after_mapping_pyrandom_{iter}.txt")
+
+        bin_numbers = []
+        count = 0
+        with open(f'./bin_numbers_after_mapping_pyrandom_{iter}.txt', 'a') as f:
+            for bin_number in all_numbers:
+                # if count == math.log(start_length,2) and count > 0:
+                #     num = bytes(bin_numbers)
+                #     f.write(num)
+                #     bin_numbers = []
+                #     count = 0
+                # else:
+                #     bin_numbers.append(bin_number)
+                #     count+=1
+                f.write(bin_number)
     
     entropy = entropy_calculation(p_set)
         
@@ -429,21 +471,24 @@ def main():
     is_individual = args.holder
     stream_1,stream_2 = stream_parse()
     stream_3 = susan_changes(stream_1)
-    random_vals_amount = int((len(stream_1)+len(stream_2))/2)
+    stream_4 = bits_log_parse()
+    random_vals_amount = len(stream_4)
+    stream_5 = susan_changes(stream_4)
     rand = random_check(random_vals_amount)
     if is_individual != 'true':
-        for i in range(2,9):
+        for i in range(2,10):
+            iter =i
             size = int(math.pow(2, i))
             print(size)
-            numbers_1 = examine_stream_binary(stream_1,False,size*2)
-            numbers_1_s = examine_stream_binary(stream_3,True,size)
-            numbers_2 = examine_stream_no_operations(stream_2, True,size)
-            numbers_3 = examine_stream_no_operations(rand, False,size)
+            numbers_1 = examine_stream_binary(stream_4,False,size*2,iter)
+            numbers_1_s = examine_stream_binary(stream_5,True,size,iter)
+            numbers_2 = examine_stream_no_operations(stream_4, True,size,iter)
+            numbers_3 = examine_stream_no_operations(rand, False,size,iter)
     else:
         size = int(args.size)
-        numbers_1 = examine_stream_binary(stream_1,False,size*2)
-        numbers_1_s = examine_stream_binary(stream_3,True,size)
-        numbers_2 = examine_stream_no_operations(stream_2, True,size)
+        numbers_1 = examine_stream_binary(stream_4,False,size*2)
+        numbers_1_s = examine_stream_binary(stream_5,True,size)
+        numbers_2 = examine_stream_no_operations(stream_4, True,size)
         numbers_3 = examine_stream_no_operations(rand, False,size)
     make_histogram(numbers_1,1, "Mapped Data")
     make_histogram(numbers_2,2, "Unmapped Data")
