@@ -230,7 +230,6 @@ def examine_stream_binary(stream, isSusan, size,iter):
     for i in range(0,start_length):
         binary_str = "{0:#b}".format(i)[2:]
         numbers[binary_str] = 0
-    print(numbers)
 
     for val in stream:
         if len(num) == math.log(start_length, 2): 
@@ -290,22 +289,36 @@ def examine_stream_binary(stream, isSusan, size,iter):
     
     new_numbers = {}
     count = 0
+    #print(numbers)
 
     for ind,val in numbers.items():
         if val > 0:
             new_numbers[count] = val
             for pos in range(0,len(all_numbers)):
                 if type(all_numbers[pos]) == type('t'):
-                    if ind == int(all_numbers[pos],2):
-                        all_numbers[pos] = count
+                    tmp_holder = int(all_numbers[pos],2)
+                    cmp_val = "{0:#b}".format(tmp_holder)[2:]
+                    if ind == cmp_val:
+                        holder = "{0:#b}".format(count)[2:]
+                        if len(holder) < math.log(map_length, 2):
+                            zeros = math.log(map_length, 2)-len(holder)
+                            str_0 = ''
+                            for i in range(0,int(zeros)):
+                                str_0 += '0'
+                            all_numbers[pos] = str_0+holder
+                        else:
+                            all_numbers[pos] = holder
             count+=1
         elif val == 0:
             for pos in range(0,len(all_numbers)):
                 if type(all_numbers[pos]) == type('t'):
-                    if ind == int(all_numbers[pos],2):
+                    tmp_holder = int(all_numbers[pos],2)
+                    cmp_val = "{0:#b}".format(tmp_holder)[2:]
+                    if ind == cmp_val:
                         all_numbers[pos] = -1 
         total_sequences += val
     
+    #print(new_numbers)
     byte_arr = []
     bin_numbers = []
     count = 0
@@ -486,10 +499,10 @@ def main():
             numbers_3 = examine_stream_no_operations(rand, False,size,iter)
     else:
         size = int(args.size)
-        numbers_1 = examine_stream_binary(stream_4,False,size*2)
-        numbers_1_s = examine_stream_binary(stream_5,True,size)
-        numbers_2 = examine_stream_no_operations(stream_4, True,size)
-        numbers_3 = examine_stream_no_operations(rand, False,size)
+        numbers_1 = examine_stream_binary(stream_4,False,size*2,8)
+        numbers_1_s = examine_stream_binary(stream_5,True,size,8)
+        numbers_2 = examine_stream_no_operations(stream_4, True,size,8)
+        numbers_3 = examine_stream_no_operations(rand, False,size,8)
     make_histogram(numbers_1,1, "Mapped Data")
     make_histogram(numbers_2,2, "Unmapped Data")
     make_histogram(numbers_3,3, "Completely Random Data")
