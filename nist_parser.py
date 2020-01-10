@@ -29,7 +29,7 @@ def examine_data(data):
                 fails +=1
             else:
                 passes += 1
-        failure_rate[key] = (fails/(passes+fails))
+        failure_rate[key] = (passes/(passes+fails))
     
     return failure_rate
 
@@ -41,7 +41,7 @@ def graph_failure_rate(fail_rates):
         holder = x_axis[i].split('_')[0]
         x_axis[i] = holder
     plt.bar(x_axis, y_axis)
-    plt.savefig('nist_fail_rate.pdf')
+    plt.savefig('nist_success_rate.pdf')
 
 if __name__ == '__main__':
     data = parse_files()
