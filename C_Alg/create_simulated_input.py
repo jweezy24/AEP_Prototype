@@ -5,7 +5,7 @@ def bits_log_parse():
     count = 0
     with open('../bits.log', 'r') as f:
         for line in f:
-            if count < 14732:
+            if count < 1017524:
                 bits.append(line[0])
                 count+=1
     print(len(bits))
