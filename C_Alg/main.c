@@ -202,9 +202,12 @@ void clear_str(char* str, int size){
 
 void write_to_file(char* str, int size){
     FILE *fpw;
-
-    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/data/C_gen_file.txt", "a");
-
+    //work path
+    fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
+    
+    //home
+    //fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/data/C_gen_file.txt", "a");
+    
     /*Error handling for output file*/
     if (fpw== NULL)
     {
