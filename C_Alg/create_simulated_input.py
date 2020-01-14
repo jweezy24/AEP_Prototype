@@ -6,7 +6,7 @@ def bits_log_parse():
     count = 0
     with open('../bits.log', 'r') as f:
         for line in f:
-            if line[0] == '0' or line[0] == '1':
+            if line[0] == '0' or line[0] == '1' and count <= 500000:
                 bits.append(line[0])
                 count+=1
     for pos in range(len(bits)-1, 0, -1):

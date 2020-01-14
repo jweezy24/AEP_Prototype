@@ -1,11 +1,11 @@
 #include "main.h"
 
 int main(){
-    char* bin_num_holder = malloc(9);
+    char* bin_num_holder = malloc(10);
     int count = 0;
     int count_nums = 0;
     int all_nums_pos = 0;
-    int total_bin_nums = (int) (strlen(bits)/9) + 1;
+    int total_bin_nums = (int) (500000/9) + 1;
     int total_before_mapping = 512;
     int total_after_mapping = 256;
     bin_number* list_of_binary_seqs = malloc(sizeof(bin_number)*total_bin_nums);
@@ -15,9 +15,10 @@ int main(){
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
-    for(int i=0; i<strlen(bits); i++){
+    for(int i=0; i<total_bin_nums; i++){
         if (count < 9){
             bin_num_holder[count] = bits[i];
+            count+=1;
         }else{
             count = 0;
             bin_number entry = *create_bin_number(bin_num_holder);
@@ -27,8 +28,9 @@ int main(){
             bin_num_holder[count] = bits[i];
             count_nums+=1;
         }
-        count+=1;
     }
+
+
 
     int iter_tmp = 0;
     int max_val = 0;
@@ -50,6 +52,18 @@ int main(){
         max_val = -1;
         all_numbers[iter_tmp].iter = -1; 
 
+    }
+
+    char* replacement_str = "GONE";
+    for(int i=0; i<total_before_mapping; i++){
+        if(all_numbers[i].iter == -1){
+            for(int j=0; j<total_bin_nums; j++){
+                if(list_of_binary_seqs[j].seq != NULL && strcmp(list_of_binary_seqs[j].seq, all_numbers[i].string) == 0){
+                    clear_str(list_of_binary_seqs[j].seq, strlen(replacement_str));
+                    strcpy(list_of_binary_seqs[j].seq, replacement_str);
+                }
+            }
+        }
     }
     
     iter_tmp = 0;
@@ -92,7 +106,7 @@ int main(){
 
 
     for(int i=0; i< total_bin_nums; i++){
-        if(list_of_binary_seqs[i].seq != NULL){
+        if(list_of_binary_seqs[i].seq != NULL && strcmp(list_of_binary_seqs[i].seq, "GONE") != 0){
             write_to_file(list_of_binary_seqs[i].seq, strlen(list_of_binary_seqs[i].seq));
         }
     }
@@ -203,10 +217,10 @@ void clear_str(char* str, int size){
 void write_to_file(char* str, int size){
     FILE *fpw;
     //work path
-    fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
+    //fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
     //home
-    //fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/data/C_gen_file.txt", "a");
+    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/data/C_gen_file.txt", "a");
     
     /*Error handling for output file*/
     if (fpw== NULL)
