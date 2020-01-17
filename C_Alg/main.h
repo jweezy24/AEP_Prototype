@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "simulated_input.h"
+#include "hash_table_utils.c"
 
 typedef struct dict{
     char* string;
