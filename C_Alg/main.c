@@ -2,6 +2,7 @@
 
 int main(){
     char* bin_num_holder = malloc(10);
+    hash_table* hasher = create_hash_table(256);
     int count = 0;
     int count_nums = 0;
     int all_nums_pos = 0;
@@ -21,9 +22,10 @@ int main(){
             count+=1;
         }else{
             count = 0;
-            bin_number entry = *create_bin_number(bin_num_holder);
-            list_of_binary_seqs[count_nums] = entry;
-            all_nums_pos = create_dictionary_entry(entry.seq, all_numbers, all_nums_pos, all_nums_pos);
+            bin_number* entry = malloc(sizeof(bin_number));
+            entry = create_bin_number(bin_num_holder);
+            list_of_binary_seqs[count_nums] = *entry;
+            all_nums_pos = create_dictionary_entry(entry->seq, all_numbers, all_nums_pos, all_nums_pos);
             bin_num_holder = clear_pointer(bin_num_holder);
             bin_num_holder[count] = bits[i];
             count_nums+=1;
@@ -58,14 +60,15 @@ int main(){
     for(int i=0; i<total_before_mapping; i++){
         if(all_numbers[i].iter == -1){
             for(int j=0; j<total_bin_nums; j++){
-                if(list_of_binary_seqs[j].seq != NULL && strcmp(list_of_binary_seqs[j].seq, all_numbers[i].string) == 0){
+                if(list_of_binary_seqs[j].seq != NULL && strcmp(replacement_str, list_of_binary_seqs[j].seq) != 0 && 
+                    strcmp(list_of_binary_seqs[j].seq, all_numbers[i].string) == 0){
                     clear_str(list_of_binary_seqs[j].seq, strlen(replacement_str));
                     strcpy(list_of_binary_seqs[j].seq, replacement_str);
                 }
             }
         }
     }
-    
+
     iter_tmp = 0;
     for(int i=0; i<256; i++){
         for(int j=0; j < total_before_mapping; j++){
@@ -76,7 +79,7 @@ int main(){
 
             }
         }
-        remapper[remapped_iter].source = malloc(strlen(all_numbers[iter_tmp].string)*sizeof(char)+1);
+        remapper[remapped_iter].source = malloc((strlen(all_numbers[iter_tmp].string)*sizeof(char))+1);
         remapper[remapped_iter].dest = malloc(strlen(all_numbers[iter_tmp].string)*sizeof(char));
         int_to_binary(new_binary_num, remapped_iter);
         strcpy(remapper[remapped_iter].source, all_numbers[iter_tmp].string);
@@ -150,9 +153,13 @@ char* clear_pointer(char* string){
 
 bin_number* create_bin_number (char* str){
     bin_number* bin_num = malloc(sizeof(bin_number));
-    bin_num->seq = malloc(sizeof(str));
-    strcpy(bin_num->seq, str);
-    return bin_num;
+    if (sizeof(str) > 1){
+        bin_num->seq = malloc(strlen(str)+1);
+        strcpy(bin_num->seq, str);
+        return bin_num;
+    }else{
+        return NULL;
+    }
 }
 
 int create_dictionary_entry(char* bnum, dict* all_numbers, int iter, int iterate){

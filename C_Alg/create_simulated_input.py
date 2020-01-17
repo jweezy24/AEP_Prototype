@@ -14,7 +14,8 @@ def bits_log_parse():
         resorted.append(bit)
 
         
-    return resorted
+    return bits
+
 
 def create_file(bits):
     with open('./simulated_input.h', 'a') as f:
