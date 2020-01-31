@@ -4,13 +4,13 @@ recreate:
 	python3 create_simulated_input.py
 
 build:
-	gcc -g -o alg.o main.c
+	gcc -g -lm -o alg.o main.c
 
 run:
 	rm /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt
 	touch /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt
-	./alg.o
-	cp /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt ./code_results.txt
+	./alg.o 2
+	cp /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt ./ascii_res/code_results.txt
 
 clean:
 	rm ./*.o

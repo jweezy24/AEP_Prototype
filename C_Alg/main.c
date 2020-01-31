@@ -2,16 +2,16 @@
 
 
 
-int main(){
+int main(int argc, char *argv[]){
 
     //hash_table* hasher = create_hash_table(256);
     int count = 0;
     int count_nums = 0;
-    int bl = 14;
-    int sl = 13;
-    int total_bin_nums = (int) (strlen(bits)/bl) + 1;
-    int total_before_mapping = 16384;
-    int total_after_mapping = 8192;
+    int bl = str_int(argv[1]);
+    int sl = bl-1;
+    int total_bin_nums = (int) floor((strlen(bits)/bl) + 1);
+    int total_before_mapping = pow(2,bl);
+    int total_after_mapping = pow(2,sl);
     bin_number* list_of_binary_seqs = malloc(sizeof(bin_number)*total_bin_nums);
     dict* all_numbers = malloc(sizeof(dict)*total_before_mapping);
 
@@ -192,8 +192,7 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
         all_numbers[iter_tmp].iter = -2;
         int_to_binary(new_binary_num, i, sl);
         for(int k=0; k<total_bin_nums; k++){
-            if(list_of_binary_seqs[k].seq != NULL && strlen(list_of_binary_seqs[k].seq) == bl
-            strcmp(all_numbers[iter_tmp].string, list_of_binary_seqs[k].seq) == 0){
+            if(list_of_binary_seqs[k].seq != NULL && strcmp(all_numbers[iter_tmp].string, list_of_binary_seqs[k].seq) == 0){
                 clear_str(list_of_binary_seqs[k].seq, strlen(new_binary_num));
                 strcpy(list_of_binary_seqs[k].seq, new_binary_num);  
             }
@@ -220,7 +219,7 @@ int write_to_file(char* str){
     //fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
     //laptop
-    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file_7.txt", "a");
+    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
     /*Error handling for output file*/
     if (fpw== NULL)
@@ -232,4 +231,19 @@ int write_to_file(char* str){
     fclose(fpw);
     return 0;
 
+}
+
+int str_int(char* str){
+    char c;
+    int tmp_num;
+    int num;
+    int size = strlen(str);
+
+    for (int i =0; i < size; i++){
+        c = str[i];
+        tmp_num = c-'0';
+        printf("%d", tmp_num);
+        num += tmp_num*pow(10, size-(i+1));   
+    }
+    return num;
 }

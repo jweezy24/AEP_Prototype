@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "simulated_input.h"
 #include "hash_table_utils.c"
+#include <math.h>
 
 typedef struct dict{
     char* string;
@@ -50,3 +51,5 @@ void find_highest_half(int total_after_mapping, int total_before_mapping,  dict*
 void replace_values(int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers);
 
 void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl, int sl);
+
+int str_int(char* str);
