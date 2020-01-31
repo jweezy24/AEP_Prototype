@@ -2,16 +2,12 @@ import os,sys
 
 def bits_log_parse():
     bits = []
-    resorted = []
     count = 0
     with open('../bits.log', 'r') as f:
         for line in f:
-            if line[0] == '0' or line[0] == '1':
+            if line[0] == '0' or line[0] == '1' and count < 1000000:
                 bits.append(line[0])
                 count+=1
-    for pos in range(len(bits)-1, 0, -1):
-        bit = bits[pos]
-        resorted.append(bit)
 
         
     return bits

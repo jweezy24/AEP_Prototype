@@ -1,4 +1,5 @@
 import os,sys
+import numpy as np
 import matplotlib.pyplot as plt
 
 def parse_files():
@@ -37,10 +38,44 @@ def examine_data(data):
 def graph_failure_rate(fail_rates):
     x_axis = list(fail_rates.keys())
     y_axis = [val for key,val in fail_rates.items() ]
+
+    neil_equation = []
+    constant_eqation = 0
+    vn=False
     for i in range(0,len(x_axis)):
-        holder = x_axis[i].split('_')[0]
+        if "vn" not in x_axis[i]:
+            holder = int(x_axis[i].split('_')[-1].replace(".txt", ''))
+        else:
+            holder = x_axis[i].split('_')[0]
+            vn=True
         x_axis[i] = holder
-    plt.bar(x_axis, y_axis)
+        if not vn:
+            neil_equation.append((holder, y_axis[i]))
+        else:
+            vn = False
+            const = y_axis[i]
+            constant_eqation_x = np.arange(7)
+            constant_eqation_x+=2
+            constant_eqation_y = [const]*7
+    min_val = 1000
+    sorted_eq = []
+    tmp = None
+    for ele in neil_equation:
+        for i in range(0,len(neil_equation)):
+            if neil_equation[i][0] < min_val:
+                tmp = neil_equation[i]
+                min_val = neil_equation[i][0]
+                index = i
+
+        if tmp != None:
+            sorted_eq.append(tmp)
+            neil_equation[index] = (1000,1000)
+
+        min_val = 1000
+    zip(*sorted_eq)
+    #print(sorted_eq)
+    plt.plot(*zip(*sorted_eq), color="red")
+    plt.plot(constant_eqation_x, constant_eqation_y, color="blue")
     plt.savefig('nist_success_rate.pdf')
 
 if __name__ == '__main__':

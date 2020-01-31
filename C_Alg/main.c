@@ -7,19 +7,21 @@ int main(){
     //hash_table* hasher = create_hash_table(256);
     int count = 0;
     int count_nums = 0;
-    int total_bin_nums = (int) (strlen(bits)/9) + 1;
-    int total_before_mapping = 512;
-    int total_after_mapping = 256;
+    int bl = 14;
+    int sl = 13;
+    int total_bin_nums = (int) (strlen(bits)/bl) + 1;
+    int total_before_mapping = 16384;
+    int total_after_mapping = 8192;
     bin_number* list_of_binary_seqs = malloc(sizeof(bin_number)*total_bin_nums);
     dict* all_numbers = malloc(sizeof(dict)*total_before_mapping);
 
-    make_inital_bit_sequence(total_bin_nums, list_of_binary_seqs, all_numbers);
+    make_inital_bit_sequence(total_bin_nums, list_of_binary_seqs, all_numbers, bl);
 
     find_highest_half(total_after_mapping, total_before_mapping, all_numbers);
 
     replace_values(total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers);
 
-    remapping_algorithm(total_after_mapping, total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers);
+    remapping_algorithm(total_after_mapping, total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers, bl, sl);
 
 
 }
@@ -108,18 +110,18 @@ void clear_str(char* str, int size){
 }
 
 
-void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers){
+void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl){
     int count = 0;
     int count_nums = 0;
-    char* bin_num_holder = malloc(10);
+    char* bin_num_holder = malloc(bl+1);
     int all_nums_pos = 0;
 
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
 
-    for(int i=0; i<total_bin_nums; i++){
-        if (count < 9){
+    for(int i=0; i<(total_bin_nums-1)*bl; i++){
+        if (count < bl){
             bin_num_holder[count] = bits[i];
             count+=1;
         }else{
@@ -170,12 +172,12 @@ void replace_values(int total_before_mapping, int total_bin_nums, bin_number* li
     }
 }
 
-void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers){
+void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers,int bl,int sl){
     int iter_tmp = 0;
     int cont = 0;
     int src_size= 0;
     int dest_size = 0;
-    char* new_binary_num = malloc(sizeof(char)*9);
+    char* new_binary_num = malloc(sizeof(char)*bl);
     int val = 0;
 
     for(int i=0; i<total_after_mapping; i++){
@@ -188,9 +190,10 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
             }
         }
         all_numbers[iter_tmp].iter = -2;
-        int_to_binary(new_binary_num, i, 8);
+        int_to_binary(new_binary_num, i, sl);
         for(int k=0; k<total_bin_nums; k++){
-            if(list_of_binary_seqs[k].seq != NULL && strcmp(all_numbers[iter_tmp].string, list_of_binary_seqs[k].seq) == 0){
+            if(list_of_binary_seqs[k].seq != NULL && strlen(list_of_binary_seqs[k].seq) == bl
+            strcmp(all_numbers[iter_tmp].string, list_of_binary_seqs[k].seq) == 0){
                 clear_str(list_of_binary_seqs[k].seq, strlen(new_binary_num));
                 strcpy(list_of_binary_seqs[k].seq, new_binary_num);  
             }
@@ -199,13 +202,13 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
         }
         if(i == total_after_mapping-1){
             for(int l=0; l < total_bin_nums; l++){
-                clear_str(new_binary_num, 9);
+                clear_str(new_binary_num, bl);
                 if(list_of_binary_seqs[l].seq != NULL && strcmp(list_of_binary_seqs[l].seq, "GONE") != 0){
                    write_to_file(list_of_binary_seqs[l].seq);
                 }
             }
         }
-        clear_str(new_binary_num, 9);
+        clear_str(new_binary_num, bl);
 
     }
 
@@ -216,8 +219,8 @@ int write_to_file(char* str){
     //work path
     //fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
-    //home
-    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/data/C_gen_file.txt", "a");
+    //laptop
+    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file_7.txt", "a");
     
     /*Error handling for output file*/
     if (fpw== NULL)
