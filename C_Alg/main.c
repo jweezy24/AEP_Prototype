@@ -5,18 +5,19 @@
 int main(int argc, char *argv[]){
 
     //hash_table* hasher = create_hash_table(256);
-    if (argc < 2){
+    if (argc <= 2){
         printf("Missing an argument");
         exit(0);
     }
     int count = 0;
     int count_nums = 0;
+
     char* path = argv[2];
     int bl = str_int(argv[1]);
     int sl = bl-1;
     int total_bin_nums = (int) floor((strlen(bits)/bl) + 1);
-    int total_before_mapping = pow(2,bl);
-    int total_after_mapping = pow(2,sl);
+    int total_before_mapping = pow_jack(2,bl);
+    int total_after_mapping = pow_jack(2,sl);
     bin_number* list_of_binary_seqs = malloc(sizeof(bin_number)*total_bin_nums);
     dict* all_numbers = malloc(sizeof(dict)*total_before_mapping);
 
@@ -31,9 +32,9 @@ int main(int argc, char *argv[]){
 
 }
 
-char* clear_pointer(char* string){
+char* clear_pointer(char* string,int size){
     free(string);
-    string = malloc(9);
+    string = malloc(size);
     return string;
 }
 
@@ -135,7 +136,7 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
             entry = create_bin_number(bin_num_holder);
             list_of_binary_seqs[count_nums] = *entry;
             all_nums_pos = create_dictionary_entry(entry->seq, all_numbers, all_nums_pos, all_nums_pos);
-            bin_num_holder = clear_pointer(bin_num_holder);
+            bin_num_holder = clear_pointer(bin_num_holder, bl);
             bin_num_holder[count] = bits[i];
             count_nums+=1;
         }
@@ -240,15 +241,26 @@ int write_to_file(char* str, char* path){
 }
 
 int str_int(char* str){
-    char c;
-    int tmp_num;
-    int num;
+    char c = 0;
+    int tmp_num = 0;
+    int num = 0;
     int size = strlen(str);
 
     for (int i =0; i < size; i++){
         c = str[i];
-        tmp_num = c-'0';
-        num += tmp_num*pow(10, size-(i+1));   
+        tmp_num = c -'0';
+        num += tmp_num*pow_jack(10, size-(i+1));   
     }
     return num;
+}
+
+int pow_jack(int a, int b){
+    int tmp_num = 1;
+    if (b == 0){
+        return 1;
+    }
+    for(int i = 0; i < b; i++){
+        tmp_num = tmp_num*a;
+    }
+    return tmp_num;
 }

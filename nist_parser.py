@@ -81,25 +81,48 @@ def graph_failure_rate(fail_rates):
 
 
 def data_loss_percentage():
-    bits = 20000000
+    bits = 1000000
     vn_ratio = 1
-    algorithm_sequence_size_to_bits = {}
-    for filename in os.listdir("./nist_test_results"):
-        bits_in_file_str = subprocess.Popen(['wc', '-c', f'../nist_test_results/{filename}'],
+    tuples = []
+    x_vals_neil = []
+    y_vals_neil = []
+    for filename in os.listdir("./C_Alg/Ascii_files"):
+        bits_in_file_str = subprocess.Popen(['wc', '-c', f'./C_Alg/Ascii_files/{filename}'],
                         stdout=subprocess.PIPE, 
                         stderr=subprocess.PIPE).communicate()
+        
 
-        bits_in_file = int(bits_in_file_str.split(' ')[0])
+
+        bits_in_file = int(bits_in_file_str[0].decode('ascii').split(' ')[0])
         
 
         if 'vn' in filename:
             vn_ratio = bits_in_file/bits
         
         else:
+            sequence_length = int(bits_in_file_str[0].decode('ascii').split(' ')[1].split('.')[1].split('/')[-1])
             tmp_ratio = bits_in_file/bits
+            index = 0
+            tuples.append((sequence_length, tmp_ratio))
+
+    print(tuples)
+    sorted_by_sequence = sorted(tuples, key=lambda tup: tup[1])
+    print(sorted_by_sequence)
+    for seq,val in sorted_by_sequence:
+        x_vals_neil.append(seq)
+        y_vals_neil.append(val)
+    const = vn_ratio
+    x_vals_vn = np.arange(len(x_vals_neil))
+    y_vals_vn = [const]*len(y_vals_neil)
+
+    plt.plot(x_vals_vn, y_vals_vn, color="blue")
+    plt.plot(x_vals_neil, y_vals_neil, color="red")
+    plt.savefig('nist_success_rate.pdf')
+
             
     
 if __name__ == '__main__':
-    data = parse_files()
-    failure_data = examine_data(data)
-    graph_failure_rate(failure_data)
+    #data = parse_files()
+    #failure_data = examine_data(data)
+    #graph_failure_rate(failure_data)
+    data_loss_percentage()

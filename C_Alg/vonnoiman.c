@@ -12,7 +12,8 @@ void vn_swap(){
     int count_nums = 0;
     int value = 0;
     int all_nums_pos = 0;
-
+    char* path = "/home/jweezy/Drive2/Code/AEP_Prototype/C_Alg/Ascii_files/vn.txt";
+    int length = strlen(bits);
 
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
@@ -24,20 +25,20 @@ void vn_swap(){
             count+=1;
         }else{
 
-            switch(value){
-                case 96:
-                    write_to_file("1");
-                    break;
-                case 98:
-                    write_to_file("1");
-                    break;
-                case 97:
-                    write_to_file("0");
-                    break;
-                }
-            
-            value = 0;
-            count =0;
+            //96 = '0' + '0'
+            //97 = '1' + '0' or '0' + '1'
+            //98 = '1' + '1'
+            if ( value == 96){
+                write_to_file("1",path);
+            }
+            else if ( value == 98){
+                write_to_file("1",path);
+            }
+            else if ( value == 97){
+                write_to_file("0",path);
+            }
+           value = 0;
+           count = 0;
 
     }
 
@@ -45,13 +46,14 @@ void vn_swap(){
 
 }
 
-int write_to_file(char* str){
+
+int write_to_file(char* str, char* path){
     FILE *fpw;
     //work path
     //fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
     //home
-    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/vn_C_gen.txt", "a");
+    fpw = fopen(path, "a");
     
     /*Error handling for output file*/
     if (fpw== NULL)

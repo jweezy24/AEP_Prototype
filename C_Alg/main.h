@@ -3,7 +3,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include "simulated_input.h"
-#include "hash_table_utils.c"
 #include <math.h>
 
 typedef struct dict{
@@ -26,7 +25,7 @@ void vn_swap();
 
 int create_dictionary_entry(char* bnum, dict* all_numbers, int iter, int iterate);
 
-char* clear_pointer(char* string);
+char* clear_pointer(char* string, int size);
 
 void free_dictionary(dict* all_numbers, int iter);
 
@@ -53,3 +52,7 @@ void replace_values(int total_before_mapping, int total_bin_nums, bin_number* li
 void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl, int sl,char* path);
 
 int str_int(char* str);
+
+int pow_jack(int a, int b);
+
+void figure_what_to_write(int value, char* path);
