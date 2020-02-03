@@ -5,8 +5,13 @@
 int main(int argc, char *argv[]){
 
     //hash_table* hasher = create_hash_table(256);
+    if (argc < 2){
+        printf("Missing an argument");
+        exit(0);
+    }
     int count = 0;
     int count_nums = 0;
+    char* path = argv[2];
     int bl = str_int(argv[1]);
     int sl = bl-1;
     int total_bin_nums = (int) floor((strlen(bits)/bl) + 1);
@@ -21,7 +26,7 @@ int main(int argc, char *argv[]){
 
     replace_values(total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers);
 
-    remapping_algorithm(total_after_mapping, total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers, bl, sl);
+    remapping_algorithm(total_after_mapping, total_before_mapping, total_bin_nums, list_of_binary_seqs, all_numbers, bl, sl, path);
 
 
 }
@@ -172,7 +177,8 @@ void replace_values(int total_before_mapping, int total_bin_nums, bin_number* li
     }
 }
 
-void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers,int bl,int sl){
+void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums,
+ bin_number* list_of_binary_seqs, dict* all_numbers,int bl,int sl, char* path){
     int iter_tmp = 0;
     int cont = 0;
     int src_size= 0;
@@ -203,7 +209,7 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
             for(int l=0; l < total_bin_nums; l++){
                 clear_str(new_binary_num, bl);
                 if(list_of_binary_seqs[l].seq != NULL && strcmp(list_of_binary_seqs[l].seq, "GONE") != 0){
-                   write_to_file(list_of_binary_seqs[l].seq);
+                   write_to_file(list_of_binary_seqs[l].seq, path);
                 }
             }
         }
@@ -213,13 +219,13 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
 
 }
 
-int write_to_file(char* str){
+int write_to_file(char* str, char* path){
     FILE *fpw;
     //work path
     //fpw = fopen("/opt/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
     
     //laptop
-    fpw = fopen("/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/C_gen_file.txt", "a");
+    fpw = fopen(path, "a");
     
     /*Error handling for output file*/
     if (fpw== NULL)
@@ -242,7 +248,6 @@ int str_int(char* str){
     for (int i =0; i < size; i++){
         c = str[i];
         tmp_num = c-'0';
-        printf("%d", tmp_num);
         num += tmp_num*pow(10, size-(i+1));   
     }
     return num;
