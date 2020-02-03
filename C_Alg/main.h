@@ -42,7 +42,7 @@ int fromBinary(char *s);
 
 void clear_str(char* str,int size);
 
-int write_to_file(char* str);
+int write_to_file(char* str, char* path);
 
 void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl);
 
@@ -50,6 +50,6 @@ void find_highest_half(int total_after_mapping, int total_before_mapping,  dict*
 
 void replace_values(int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers);
 
-void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl, int sl);
+void remapping_algorithm(int total_after_mapping, int total_before_mapping, int total_bin_nums, bin_number* list_of_binary_seqs, dict* all_numbers, int bl, int sl,char* path);
 
 int str_int(char* str);
