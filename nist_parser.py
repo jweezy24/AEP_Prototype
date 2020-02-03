@@ -1,6 +1,7 @@
 import os,sys
 import numpy as np
 import matplotlib.pyplot as plt
+import subprocess
 
 def parse_files():
     data_to_file = {}
@@ -78,6 +79,26 @@ def graph_failure_rate(fail_rates):
     plt.plot(constant_eqation_x, constant_eqation_y, color="blue")
     plt.savefig('nist_success_rate.pdf')
 
+
+def data_loss_percentage():
+    bits = 20000000
+    vn_ratio = 1
+    algorithm_sequence_size_to_bits = {}
+    for filename in os.listdir("./nist_test_results"):
+        bits_in_file_str = subprocess.Popen(['wc', '-c', f'../nist_test_results/{filename}'],
+                        stdout=subprocess.PIPE, 
+                        stderr=subprocess.PIPE).communicate()
+
+        bits_in_file = int(bits_in_file_str.split(' ')[0])
+        
+
+        if 'vn' in filename:
+            vn_ratio = bits_in_file/bits
+        
+        else:
+            tmp_ratio = bits_in_file/bits
+            
+    
 if __name__ == '__main__':
     data = parse_files()
     failure_data = examine_data(data)
