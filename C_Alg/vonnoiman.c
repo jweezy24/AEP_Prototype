@@ -12,29 +12,33 @@ void vn_swap(){
     int count_nums = 0;
     int value = 0;
     int all_nums_pos = 0;
-    char* path = "/home/jweezy/Drive2/Code/AEP_Prototype/C_Alg/Ascii_files/vn.txt";
-    int length = strlen(bits);
+    char* path = "./Ascii_files/vn.txt";
+    int length = 29478362;
 
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
 
-    for(int i=0; i<1000000; i++){
-        if (count < 2){
+    for(int i=0; i<length; i++){
+        if (count < 2 && count%2 == 0){
             value += (int)bits[i];
+            count+=1;
+        }
+        else if(count < 2 && count%2 == 1){
+            value -= (int)bits[i];
             count+=1;
         }else{
 
-            //96 = '0' + '0'
-            //97 = '1' + '0' or '0' + '1'
-            //98 = '1' + '1'
-            if ( value == 96){
+            //0 = '0' - '0' or '1' - '1'
+            //1 = '1' - '0'
+            //-1 = '0' - '1'
+            if ( value == 0){
                 write_to_file("1",path);
             }
-            else if ( value == 98){
+            else if ( value == 1){
                 write_to_file("1",path);
             }
-            else if ( value == 97){
+            else if ( value == -1){
                 write_to_file("0",path);
             }
            value = 0;

@@ -81,7 +81,7 @@ def graph_failure_rate(fail_rates):
 
 
 def data_loss_percentage():
-    bits = 1000000
+    bits = 29478362
     vn_ratio = 1
     tuples = []
     x_vals_neil = []
@@ -106,18 +106,18 @@ def data_loss_percentage():
             tuples.append((sequence_length, tmp_ratio))
 
     print(tuples)
-    sorted_by_sequence = sorted(tuples, key=lambda tup: tup[1])
+    sorted_by_sequence = sorted(tuples, key=lambda tup: tup[0])
     print(sorted_by_sequence)
     for seq,val in sorted_by_sequence:
         x_vals_neil.append(seq)
         y_vals_neil.append(val)
     const = vn_ratio
-    x_vals_vn = np.arange(len(x_vals_neil))
-    y_vals_vn = [const]*len(y_vals_neil)
+    x_vals_vn = np.arange(len(x_vals_neil)+2)
+    y_vals_vn = [const]*(len(y_vals_neil)+2)
 
     plt.plot(x_vals_vn, y_vals_vn, color="blue")
     plt.plot(x_vals_neil, y_vals_neil, color="red")
-    plt.savefig('nist_success_rate.pdf')
+    plt.savefig('bit_usage_comparison.pdf')
 
             
     
