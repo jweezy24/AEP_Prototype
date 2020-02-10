@@ -122,7 +122,7 @@ def data_loss_percentage():
             
     
 if __name__ == '__main__':
-    #data = parse_files()
-    #failure_data = examine_data(data)
-    #graph_failure_rate(failure_data)
-    data_loss_percentage()
+    data = parse_files()
+    failure_data = examine_data(data)
+    graph_failure_rate(failure_data)
+    #data_loss_percentage()

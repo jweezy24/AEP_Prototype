@@ -23,8 +23,7 @@ void vn_swap(){
         if (count < 2 && count%2 == 0){
             value += (int)bits[i];
             count+=1;
-        }
-        else if(count < 2 && count%2 == 1){
+        }else if(count < 2 && count%2 == 1){
             value -= (int)bits[i];
             count+=1;
         }else{
@@ -32,10 +31,7 @@ void vn_swap(){
             //0 = '0' - '0' or '1' - '1'
             //1 = '1' - '0'
             //-1 = '0' - '1'
-            if ( value == 0){
-                write_to_file("1",path);
-            }
-            else if ( value == 1){
+            if ( value == 1){
                 write_to_file("1",path);
             }
             else if ( value == -1){
