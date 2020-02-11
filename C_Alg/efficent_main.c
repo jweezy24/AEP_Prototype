@@ -1,9 +1,12 @@
 #include "main.h"
 
+//#define DEBUG 
+
+extern char bits[];
 
 int bl = 9;
 int sl = 8;
-int total_bin_nums = sizeof(bits);
+int total_bin_nums = 29478361;
 int total_before_mapping = 512;
 int total_after_mapping = 256;
 
@@ -11,6 +14,7 @@ int main(){
     int total_before_mapping = pow_jack(2,bl);
     int total_after_mapping = pow_jack(2,sl);
     int count = 0;
+    int j;
 
     int list_ints_before[512] = {};
     int list_ints_after[256] = {};
@@ -18,25 +22,25 @@ int main(){
     int ordering_list_before[512] ={};
     int ordering_list_after[256] = {};
 
-    char *path = "/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt"; 
+    char *path = "/home/jack-admin/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt"; 
 
-    for(int j = 0; j < total_before_mapping; j++){
+    for(j = 0; j < total_before_mapping; j++){
         list_ints_before[j] = 0;
     }
 
-    for(int j = 0; j < total_after_mapping; j++){
+    for(j = 0; j < total_after_mapping; j++){
         list_ints_after[j] = 0;
     }
 
-    for(int j = 0; j < total_before_mapping; j++){
+    for(j = 0; j < total_before_mapping; j++){
         judges_list[j] = 0;
     }
 
-    for(int j = 0; j < total_before_mapping; j++){
+    for(j = 0; j < total_before_mapping; j++){
         ordering_list_before[j] = -1;
     }
 
-    for(int j = 0; j < total_after_mapping; j++){
+    for(j = 0; j < total_after_mapping; j++){
         ordering_list_after[j] = -1;
     }
 
@@ -44,16 +48,34 @@ int main(){
     int number = 0;
     int current_number = 0;
     int nxt = 0;
+    int digit = 0;
+    int accum = 1;
 
-    for(int i = 0; i < total_bin_nums;){
-        if(count < bl){
-            if (bits[i] == '1'){
-                number = pow_jack(2, count);
-                current_number += number;
-            }
-            count+=1;
-            i++;
+    for(j = 0; j < 29478361;){
+        if(count < 9){
+	    if (count == 0 && bits[j]=='1'){
+	    	accum=0;
+		current_number+=1;
+	    }else if(count == 0){
+	    	accum=0;
+	    }
+	    if (count ==1){
+	    	accum=1;
+	    }
+            if (bits[j] == '1'){
+               digit = 1;
+	       accum*= 2;
+            }else if(bits[j] == '0'){
+	    	digit = 0;
+		accum*=2;
+	    }
+	    current_number += accum*digit;
+	    count+=1;
+            j++;
         }else{
+#ifdef DEBUG
+	    printf("j=%d\n", j);
+#endif
             count = 0;
             list_ints_before[current_number] += 1;
             if(ordering_list_before[current_number] == -1){
@@ -62,7 +84,13 @@ int main(){
             }
             current_number = 0;
             number = 0;
+	    accum=1;
         }
+    }
+
+    int tmp = 0;
+    for(int i = 0; i < total_before_mapping; i++){
+    	tmp += list_ints_before[i];
     }
 
     int current_check = 0;
@@ -83,10 +111,11 @@ int main(){
     greater_than = 0;
     int dropped = 255;
     int cont = 1;
-
+    //Extracting the highest half of numbers
+    //
     for(int i = 0; i < total_after_mapping; i++){
         for(int j = 0; j < total_before_mapping; j++){
-            if(current_check < judges_list[j] && judges_list[j] != -1){
+            if(current_check <= judges_list[j] && judges_list[j] != -1 && i!=j){
                 current_check = judges_list[j];
                 cont = j;
             }
@@ -103,24 +132,27 @@ int main(){
     current_check = 512;
     int val = 0;
     int order_iter=0;
+    int check = 0;
 
     for(int i =0; i < total_after_mapping; i++){
         for(int j = 0; j < total_before_mapping; j++){
-            if(current_check < ordering_list_before[j] && ordering_list_before[j] != -1 && val != j){
+            if(current_check > ordering_list_before[j] && ordering_list_before[j] != -1 && check == 0){
                 current_check = ordering_list_before[j];
-                val = j;
+                val = current_check;
                 ordering_list_before[j] = -1;
+		check = 1;
             }
         }
         ordering_list_after[order_iter] = val;
         order_iter+=1;
         current_check = 512;
+	check = 0;
     }
 
     for(int i =0; i < total_before_mapping; i++){
         
-        if(list_ints_before[i] >= 0 && iter < 256){
-            list_ints_after[iter] = ordering_list_before[i];
+        if(list_ints_before[i] != -1){
+            list_ints_after[iter] = ordering_list_after[i];
             iter+=1;
         }
     }
@@ -155,15 +187,15 @@ int main(){
             }
 
             if(mapped == 0){
-                for(int j = 0; j <= sl; j++) {
+                for(int j = 0; j < bl; j++) {
                     bits[pos_holder+j] = 0;
 
                 }
             }else{
                 //converts integer into 8 bit binary sequence within the given list.
-                for(int j = 0; j >= count-1; j++) {
-                    bits[(i-2)-j] = (remapped_number & converter) + '0';
-                    remapped_number >>= 1;
+                for(int j = 8; j >=0; j--) {
+                    bits[(pos_holder)+j] = (remapped_number & 1) + '0';
+                    remapped_number <<= 1;
                 }
             }
             bits[i-1] = 0;

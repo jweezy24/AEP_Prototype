@@ -28,12 +28,16 @@ run_v:
 	./vn.o
 	cp /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/vn_C_gen.txt ./code_results_vn.txt
 
-build_ef:
-	gcc -g -o ef.o efficent_main.c
+
+
+simulated_input.o:
+	gcc -c -o simulated_input.o simulated_input.c
+build_ef: simulated_input.o
+	gcc -g -o ef.o efficent_main.c simulated_input.o
 
 run_ef:
-	rm /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt
+	rm /home/jack-admin/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt
 	./ef.o
 
 debug_ef:
-	gdb ./ef.o
+	gdb -x ef.txt ./ef.o

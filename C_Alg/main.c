@@ -124,6 +124,11 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
 
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
+    	tmp_array[i] = 0;
+    }
+
+    // This loop creates 2 things.
+    // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
 
     for(int i=0; i<(total_bin_nums-1)*bl; i++){
@@ -135,8 +140,9 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
             bin_number* entry = malloc(sizeof(bin_number));
             entry = create_bin_number(bin_num_holder);
             list_of_binary_seqs[count_nums] = *entry;
+
             all_nums_pos = create_dictionary_entry(entry->seq, all_numbers, all_nums_pos, all_nums_pos);
-            bin_num_holder = clear_pointer(bin_num_holder, bl);
+	    bin_num_holder = clear_pointer(bin_num_holder, bl);
             bin_num_holder[count] = bits[i];
             count_nums+=1;
         }
@@ -258,9 +264,3 @@ int pow_jack(int a, int b){
     int tmp_num = 1;
     if (b == 0){
         return 1;
-    }
-    for(int i = 0; i < b; i++){
-        tmp_num = tmp_num*a;
-    }
-    return tmp_num;
-}
