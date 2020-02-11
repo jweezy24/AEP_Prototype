@@ -14,7 +14,7 @@ def bits_log_parse():
 
 
 def create_file(bits):
-    with open('./simulated_input.h', 'a') as f:
+    with open('./simulated_input.c', 'a') as f:
         f.write('char bits[] = {')
         for bit in range(0,len(bits)):
             if bit < len(bits)-2:

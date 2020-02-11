@@ -1,5 +1,5 @@
 #include "main.h"
-
+extern char bits[];
 
 
 int main(int argc, char *argv[]){
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]){
     char* path = argv[2];
     int bl = str_int(argv[1]);
     int sl = bl-1;
-    int total_bin_nums = (int) floor((strlen(bits)/bl) + 1);
+    int total_bin_nums = (int) 29478361;
     int total_before_mapping = pow_jack(2,bl);
     int total_after_mapping = pow_jack(2,sl);
     bin_number* list_of_binary_seqs = malloc(sizeof(bin_number)*total_bin_nums);
@@ -124,14 +124,11 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
 
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
-    	tmp_array[i] = 0;
-    }
-
     // This loop creates 2 things.
     // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
 
-    for(int i=0; i<(total_bin_nums-1)*bl; i++){
+    for(int i=0; i<total_bin_nums; i++){
         if (count < bl){
             bin_num_holder[count] = bits[i];
             count+=1;
@@ -264,3 +261,9 @@ int pow_jack(int a, int b){
     int tmp_num = 1;
     if (b == 0){
         return 1;
+    }
+    for(int i = 0; i < b; i++){
+        tmp_num = tmp_num*a;
+    }
+    return tmp_num;
+}
