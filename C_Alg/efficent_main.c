@@ -49,14 +49,13 @@ int main(){
     int current_number = 0;
     int nxt = 0;
 
-    for(j = 0; j < total_bin_nums;){
+    for(j = 0; j < total_bin_nums; j++){
         if(count > 0){
-	    if (bits[j] == '1'){
-            number = pow_jack(2, count-1);
-            current_number += number;
-        }
+	        if (bits[j] == '1'){
+                number = pow_jack(2, count-1);
+                current_number += number;
+            }
         count-=1;
-        j++;
         }else{
 #ifdef DEBUG
 	    printf("j=%d\n", j);
@@ -77,9 +76,8 @@ int main(){
     int  greater_than = 0;
 
     for(int i = 0; i < total_before_mapping; i++){
-        current_check = list_ints_before[i];
         for(int j = 0; j < total_before_mapping; j++){
-            if(current_check > list_ints_before[j]){
+            if(list_ints_before[i] > list_ints_before[j]){
                 greater_than += 1; 
             }
         }
@@ -147,25 +145,32 @@ int main(){
     int converter = total_after_mapping;
     number = 0;
 
-    for(int i = 0; i < total_bin_nums;){
+    for(int i = 0; i < total_bin_nums;i++){
         if(count > 0){
             if (bits[i] == '1'){
                 number = pow_jack(2, count-1);
                 current_number += number;
             }
             count-=1;
-            i++;
         }else{
             pos_holder = (i) - bl;
 
-            for(int k = 0; k < total_after_mapping; k++){
+            if(list_ints_before[current_number] == -1){
+                mapped = -1;
+            }
+
+            if(list_ints_before[current_number] != -1){
+                mapped = 0;
+            }
+
+            for(int k = 0; k < total_after_mapping && mapped == 0; k++){
                 if(current_number == ordering_list_after[k]){
                     remapped_number = k;
                     mapped = 1;
                 }
             }
 
-            if(mapped == 0){
+            if(mapped == 0 || mapped == -1){
                 for(int j = 0; j < bl; j++) {
                     bits[pos_holder+j] = 'f';
                 }
@@ -176,7 +181,8 @@ int main(){
                     remapped_number >>= 1;
                 }
             }
-            bits[pos_holder+sl] = 'f';
+            bits[i-1] = 'f';
+            bits[i] = 'f';
             current_number = 0;
             remapped_number = 0;
             pos_holder = 0;

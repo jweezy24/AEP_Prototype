@@ -128,10 +128,11 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
     // The first thing is a sequence of binary numbers in order of the created array.
     // The second thing this loop does is create a dictionary mapping all the original values
 
-    for(int i=0; i<total_bin_nums; i++){
+    for(int i=0; i<total_bin_nums;){
         if (count < bl){
             bin_num_holder[count] = bits[i];
             count+=1;
+            i++;
         }else{
             count = 0;
             bin_number* entry = malloc(sizeof(bin_number));
@@ -139,8 +140,7 @@ void make_inital_bit_sequence(int total_bin_nums, bin_number* list_of_binary_seq
             list_of_binary_seqs[count_nums] = *entry;
 
             all_nums_pos = create_dictionary_entry(entry->seq, all_numbers, all_nums_pos, all_nums_pos);
-	    bin_num_holder = clear_pointer(bin_num_holder, bl);
-            bin_num_holder[count] = bits[i];
+	        bin_num_holder = clear_pointer(bin_num_holder, bl);
             count_nums+=1;
         }
     }
@@ -191,8 +191,8 @@ void remapping_algorithm(int total_after_mapping, int total_before_mapping, int 
     int val = 0;
 
     for(int i=0; i<total_after_mapping; i++){
-        for(int j=0; j < total_before_mapping; j++){
-            if (all_numbers[j].iter >= 0 && cont == 0){
+        for(int j=0; j < total_before_mapping && cont == 0; j++){
+            if (all_numbers[j].iter >= 0){
                 val = all_numbers[j].iter;
                 iter_tmp = j;
                 cont = 1;
