@@ -6,6 +6,7 @@ extern char bits[];
 
 int bl = 8;
 int sl = 7;
+int discard = 6;
 int total_bin_nums = 29478361;
 int total_before_mapping = 256;
 int total_after_mapping = 128;
@@ -22,7 +23,7 @@ int main(){
     int ordering_list_before[256] ={};
     int ordering_list_after[128] = {};
 
-    char *path = "/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt"; 
+    char *path = "/home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef_6.txt"; 
 
     for(j = 0; j < total_before_mapping; j++){
         list_ints_before[j] = 0;
@@ -68,6 +69,9 @@ int main(){
             }
             current_number = 0;
             number = 0;
+            for(int i = 1; i < discard; i++){
+                j++;
+            }
         }
     }
 
@@ -182,7 +186,10 @@ int main(){
                 }
             }
             bits[i-1] = 'f';
-            bits[i] = 'f';
+            for(int j = 1; j < discard; j++){
+                bits[i] = 'f';
+                i++;
+            }
             current_number = 0;
             remapped_number = 0;
             pos_holder = 0;

@@ -38,7 +38,7 @@ def bits_log_parse():
 def random_check(vals):
     random_set = []
     for i in range(0, vals):
-        test_num = random.randint(0,128)
+        test_num = random.randint(0,256)
         random_set.append(str(test_num%2))
     return random_set
 
@@ -488,6 +488,10 @@ def main():
     random_vals_amount = len(stream_4)
     stream_5 = susan_changes(stream_4)
     rand = random_check(random_vals_amount)
+    with open("./python_random.txt", 'a') as f:
+        for item in rand:
+            f.write(item)
+    exit()
     if is_individual != 'true':
         for i in range(2,10):
             iter =i

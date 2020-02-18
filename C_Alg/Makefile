@@ -36,7 +36,7 @@ build_ef: simulated_input.o
 	gcc -g -o ef.o efficent_main.c simulated_input.o
 
 run_ef:
-	rm /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef.txt
+	rm /home/jweezy/Desktop/sts-2.1.2/sts-2.1.2/data/ef_5.txt
 	./ef.o
 
 debug_ef:

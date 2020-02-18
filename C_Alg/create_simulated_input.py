@@ -8,19 +8,8 @@ def bits_log_parse():
             if line[0] == '0' or line[0] == '1':
                 bits.append(line[0])
                 count+=1
-    count = 0
-    str_t = ''
-    for line in bits:
-        if count <= 7:
-            count+=1
-            str_t+=line
-        else:
-            print(str_t)
-            str_t=line
-            input()
-            count =1
     #print(len(bits))
-    #return bits
+    return bits
 
 
 def create_file(bits):
@@ -48,5 +37,5 @@ def create_file(bits):
 
 if __name__ == "__main__":
     bits = bits_log_parse()
-    #create_file(bits)
+    create_file(bits)
         

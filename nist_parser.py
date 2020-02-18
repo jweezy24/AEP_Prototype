@@ -55,9 +55,9 @@ def graph_failure_rate(fail_rates):
         else:
             vn = False
             const = y_axis[i]
-            constant_eqation_x = np.arange(7)
+            constant_eqation_x = np.arange(12)
             constant_eqation_x+=2
-            constant_eqation_y = [const]*7
+            constant_eqation_y = [const]*12
     min_val = 1000
     sorted_eq = []
     tmp = None
@@ -75,9 +75,18 @@ def graph_failure_rate(fail_rates):
         min_val = 1000
     zip(*sorted_eq)
     #print(sorted_eq)
-    plt.plot(*zip(*sorted_eq), color="red")
-    plt.plot(constant_eqation_x, constant_eqation_y, color="blue")
+    x_1, y_1 = zip(*sorted_eq) 
+    l1 = plt.plot(x_1, y_1, color="red", label="Voltcrypt")
+    l2 = plt.plot(constant_eqation_x, constant_eqation_y, color="blue", label="Von Neumann")
+    plt.rc('font',family="serif")
+    plt.xlabel("Bit Sequence Length", fontname="serif", fontsize=12)
+    plt.ylabel("NIST Test Pass Rate (Percentage)", fontname="serif", fontsize=12)
+    plt.title("NIST Test Success rate", fontname='serif')
+    plt.yticks(fontname='serif', fontsize=10)
+    plt.xticks(fontname='serif', fontsize=10)
+    plt.legend()
     plt.savefig('nist_success_rate.pdf')
+    plt.clf()
 
 
 def data_loss_percentage():
@@ -115,8 +124,15 @@ def data_loss_percentage():
     x_vals_vn = np.arange(len(x_vals_neil)+2)
     y_vals_vn = [const]*(len(y_vals_neil)+2)
 
-    plt.plot(x_vals_vn, y_vals_vn, color="blue")
-    plt.plot(x_vals_neil, y_vals_neil, color="red")
+    l1 = plt.plot(x_vals_vn, y_vals_vn, color="blue", label="Von Neumann")
+    l2 = plt.plot(x_vals_neil, y_vals_neil, color="red", label="Voltcrypt")
+    plt.rc('font',family="serif")
+    plt.xlabel("Bit Sequence Length", fontname="serif", fontsize=12)
+    plt.ylabel("Data Remaining (Percentage)", fontname="serif", fontsize=12)
+    plt.title("Data Retained After Algorithm", fontname='serif')
+    plt.yticks(fontname='serif', fontsize=10)
+    plt.xticks(fontname='serif', fontsize=10)
+    plt.legend()
     plt.savefig('bit_usage_comparison.pdf')
 
             
@@ -125,4 +141,4 @@ if __name__ == '__main__':
     data = parse_files()
     failure_data = examine_data(data)
     graph_failure_rate(failure_data)
-    #data_loss_percentage()
+    data_loss_percentage()
