@@ -85,6 +85,17 @@ def graph_failure_rate(fail_rates):
     plt.yticks(fontname='serif', fontsize=10)
     plt.xticks(fontname='serif', fontsize=10)
     plt.legend()
+    with open("data.txt", 'a') as data:
+        data.write("\n")
+        data.write(f'x_axis_plot_2: {str(constant_equation_x)}')
+        data.write("\n")
+        data.write(f'y_axis_plot_2: {str(constant_equation_y)}')
+        data.write("\n")
+        data.write("\n")
+        data.write(f'x_axis_plot_2: {str(x_1)}')
+        data.write("\n")
+        data.write(f'y_axis_plot_2: {str(y_1)}')
+        data.write("\n")
     plt.savefig('nist_success_rate.pdf')
     plt.clf()
 
@@ -132,9 +143,20 @@ def data_loss_percentage():
     plt.title("Data Retained After Algorithm", fontname='serif')
     plt.yticks(fontname='serif', fontsize=10)
     plt.xticks(fontname='serif', fontsize=10)
+    with open("data.txt", 'a') as data:
+        data.write("\n")
+        data.write(f'x_axis_plot_1: {str(x_vals_vn)}')
+        data.write("\n")
+        data.write(f'y_axis_plot_1: {str(y_vals_vn)}')
+        data.write("\n")
+        data.write("\n")
+        data.write(f'x_axis_plot_1: {str(x_vals_neil)}')
+        data.write("\n")
+        data.write(f'y_axis_plot_1: {str(y_vals_neil)}')
+        data.write("\n")
+        
     plt.legend()
     plt.savefig('bit_usage_comparison.pdf')
-
             
     
 if __name__ == '__main__':
